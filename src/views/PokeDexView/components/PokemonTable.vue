@@ -11,17 +11,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="pokemon in pokemons" :key="pokemon.id">
+                    <tr class="pokemon-table-row" v-for="pokemon in pokemons" :key="pokemon.id">
                         <td>#{{ pokemon.id }}</td>
-                        <td><img :src="pokemon.sprites.front_default" /></td>
-                        <td>{{ pokemon.name }}</td>
+                        <td>
+                            <img :src="pokemon.sprites.front_default" height="96" width="96" />
+                        </td>
+                        <td>{{ getFormatedName(pokemon.name) }}</td>
                         <td>{{ pokemon.types.map((type) => type.type.name).join(', ') }}</td>
                     </tr>
                 </tbody>
             </template>
         </v-simple-table>
-
-        <v-progress-linear v-show="isLoading" indeterminate color="teal"></v-progress-linear>
 
         <div class="text-center">
             <v-pagination
@@ -32,6 +32,8 @@
                 circle
             ></v-pagination>
         </div>
+
+        <v-progress-linear v-show="isLoading" indeterminate color="teal"></v-progress-linear>
     </div>
 </template>
 
@@ -77,7 +79,17 @@ export default {
                 .then(() => {
                     this.isLoading = false;
                 });
+        },
+
+        getFormatedName(name) {
+            return name.charAt(0).toUpperCase() + name.slice(1);
         }
     }
 };
 </script>
+
+<style scoped>
+.pokemon-table-row td {
+    width: 25%;
+}
+</style>
