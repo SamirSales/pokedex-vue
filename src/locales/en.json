@@ -1,3 +1,7 @@
 {
-  "message": "hello i18n !!"
+    "image": "Image",
+    "name": "Name",
+    "number": "Number",
+    "pokedex": "Pokédex",
+    "type": "Type"
 }
