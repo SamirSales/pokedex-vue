@@ -25,11 +25,12 @@
 
         <div class="text-center">
             <v-pagination
-                v-model="pageNumber"
+                :value="pageNumber"
                 :length="numberOfPages"
                 :disabled="isLoading"
                 color="red"
                 circle
+                @input="onChangePageNumber(arguments[0])"
             ></v-pagination>
         </div>
 
@@ -38,51 +39,44 @@
 </template>
 
 <script>
-import PokemonHttpRequest from '@/http/PokemonHttpRequest';
+import { PokemonTableDataHandler } from '@/store/modules/pokemonTable';
+import PokemonStoreHttpRequest from '@/facade/PokemonStoreHttpRequest';
 
 export default {
-    data: () => ({
-        pokemons: [],
-        pageNumber: 1,
-        pageSize: 5,
-        isLoading: false
-    }),
-
     computed: {
         numberOfPages() {
             return 150 / this.pageSize;
-        }
-    },
+        },
 
-    watch: {
+        pokemons() {
+            return PokemonTableDataHandler.getItems(this);
+        },
+
         pageNumber() {
-            this.refreshTable();
+            return PokemonTableDataHandler.getPageNumber(this);
+        },
+
+        pageSize() {
+            return PokemonTableDataHandler.getPageSize(this);
+        },
+
+        isLoading() {
+            return PokemonTableDataHandler.isLoading(this);
         }
     },
 
     created() {
-        this.refreshTable();
+        PokemonStoreHttpRequest.refreshData(this);
     },
 
     methods: {
-        refreshTable() {
-            this.isLoading = true;
-
-            PokemonHttpRequest.getPageByNumberAndSize(this.pageNumber, this.pageSize)
-                .then((response) => {
-                    console.log('response', response);
-                    this.pokemons = response;
-                })
-                .catch((error) => {
-                    console.log('error', error);
-                })
-                .then(() => {
-                    this.isLoading = false;
-                });
-        },
-
         getFormatedName(name) {
             return name.charAt(0).toUpperCase() + name.slice(1);
+        },
+
+        onChangePageNumber(pageNumber) {
+            PokemonTableDataHandler.setPageNumber(this, pageNumber);
+            PokemonStoreHttpRequest.refreshData(this);
         }
     }
 };
