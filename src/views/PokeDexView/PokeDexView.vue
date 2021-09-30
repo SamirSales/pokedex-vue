@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>{{ $t('pokedex') }}</h1>
         <pokemon-table></pokemon-table>
     </div>
 </template>

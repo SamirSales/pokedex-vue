@@ -24,7 +24,13 @@
         <v-progress-linear v-show="isLoading" indeterminate color="teal"></v-progress-linear>
 
         <div class="text-center">
-            <v-pagination v-model="pageNumber" :length="numberOfPages" :disabled="isLoading" circle></v-pagination>
+            <v-pagination
+                v-model="pageNumber"
+                :length="numberOfPages"
+                :disabled="isLoading"
+                color="red"
+                circle
+            ></v-pagination>
         </div>
     </div>
 </template>
