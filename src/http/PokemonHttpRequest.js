@@ -1,4 +1,5 @@
 import HttpRequest from './HttpRequest';
+import Configuration from '@/Configuration';
 
 export default {
     getPageByNumberAndSize(pageNumber, pageSize) {
@@ -6,8 +7,10 @@ export default {
         const promises = [];
 
         for (let i = 0; i < pageSize; i++) {
-            const promise = this.getByNameOrNumber(initialPokemonNumber + i);
-            promises.push(promise);
+            if (initialPokemonNumber + i <= Configuration.MAX_NUMBER_OF_POKEMONS) {
+                const promise = this.getByNameOrNumber(initialPokemonNumber + i);
+                promises.push(promise);
+            }
         }
 
         return Promise.all(promises).then((responses) => {

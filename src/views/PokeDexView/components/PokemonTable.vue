@@ -47,6 +47,7 @@
 <script>
 import { PokemonTableDataHandler } from '@/store/modules/pokemonTable';
 import PokemonStoreHttpRequest from '@/facade/PokemonStoreHttpRequest';
+import Configuration from '@/Configuration';
 
 import PokemonTypeChip from './PokemonTypeChip.vue';
 
@@ -57,7 +58,7 @@ export default {
 
     computed: {
         numberOfPages() {
-            return 151 / this.pageSize;
+            return Configuration.MAX_NUMBER_OF_POKEMONS / this.pageSize;
         },
 
         pokemons() {
