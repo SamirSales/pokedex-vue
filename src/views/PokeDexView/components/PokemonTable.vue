@@ -17,7 +17,13 @@
                             <img :src="pokemon.sprites.front_default" height="96" width="96" />
                         </td>
                         <td>{{ getFormatedName(pokemon.name) }}</td>
-                        <td>{{ pokemon.types.map((type) => type.type.name).join(', ') }}</td>
+                        <td>
+                            <pokemon-type-chip
+                                v-for="type in pokemon.types"
+                                :type="type.type.name"
+                                :key="type.type.name + pokemon.id"
+                            ></pokemon-type-chip>
+                        </td>
                     </tr>
                 </tbody>
             </template>
@@ -42,10 +48,16 @@
 import { PokemonTableDataHandler } from '@/store/modules/pokemonTable';
 import PokemonStoreHttpRequest from '@/facade/PokemonStoreHttpRequest';
 
+import PokemonTypeChip from './PokemonTypeChip.vue';
+
 export default {
+    components: {
+        'pokemon-type-chip': PokemonTypeChip
+    },
+
     computed: {
         numberOfPages() {
-            return 150 / this.pageSize;
+            return 151 / this.pageSize;
         },
 
         pokemons() {
