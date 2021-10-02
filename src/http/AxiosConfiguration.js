@@ -27,9 +27,6 @@ export default axiosClient();
 
 const getAcceptLanguage = () => {
     switch (InternationalizationHandler.getCurrentLocale()) {
-        case Locale.PT_BR:
-            return 'br';
-
         case Locale.FR:
             return 'fr';
 

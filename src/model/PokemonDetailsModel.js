@@ -1,10 +1,16 @@
+import InternationalizationHandler from '@/handlers/InternationalizationHandler';
+
 export default class PokemonDetailsModel {
     constructor(dataResponse) {
         this.dataResponse = dataResponse;
     }
 
     getDescription() {
-        return this.dataResponse.flavor_text_entries[0].flavor_text.replace('\f', ' ');
+        return this.dataResponse.flavor_text_entries
+            .filter((fte) => {
+                return fte.language.name === InternationalizationHandler.getCurrentLocale();
+            })[0]
+            .flavor_text.replace('\f', ' ');
     }
 
     getEvolutionChainURL() {

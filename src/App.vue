@@ -1,12 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar app color="red" dark>
-            <div class="d-flex align-center">
-                <v-toolbar-title>{{ $t('pokedex') }}</v-toolbar-title>
-            </div>
-
-            <v-spacer></v-spacer>
-        </v-app-bar>
+        <main-screen-toolbar></main-screen-toolbar>
 
         <v-main>
             <router-view />
@@ -18,10 +12,12 @@
 
 <script>
 import ErrorDialog from '@/components/dialog/ErrorDialog';
+import MainScreenToolbar from '@/components/mainScreen/MainScreenToolbar';
 
 export default {
     components: {
-        'error-dialog': ErrorDialog
+        'error-dialog': ErrorDialog,
+        'main-screen-toolbar': MainScreenToolbar
     }
 };
 </script>

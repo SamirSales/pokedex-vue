@@ -1,0 +1,44 @@
+{
+    "baseExperience": "Expérience de base",
+    "chainOfEvolution": "Chaîne d'évolution",
+    "close": "Fermer",
+    "description": "Description",
+    "games": "Jeux",
+    "height": "Hauteur",
+    "image": "Image",
+    "name": "Nom",
+    "number": "Numéro",
+    "pokedex": "Pokédex",
+    "type": "Tapez",
+    "weight": "Poids",
+
+    "pokemonPointType": {
+        "attack": "Attaque",
+        "defense": "Défense",
+        "hp": "HP",
+        "special-attack": "Attaque spéciale",
+        "special-defense": "Défense spéciale",
+        "speed": "Vitesse"
+    },
+
+    "pokemonType": {
+        "bug": "insecte",
+        "dark": "sombre",
+        "dragon": "dragon",
+        "electric": "électrique",
+        "fairy": "fée",
+        "fighting": "combattre",
+        "fire": "feu",
+        "flying": "volant",
+        "ghost": "fantôme",
+        "grass": "herbe",
+        "ground": "sol",
+        "ice": "glace",
+        "normal": "normal",
+        "poison": "toxique",
+        "psychic": "psychique",
+        "rock": "roche",
+        "steel": "acier",
+        "water": "l'eau"
+    }
+}

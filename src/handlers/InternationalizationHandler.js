@@ -1,12 +1,16 @@
 import i18n from '../i18n';
 
 export const Locale = {
-    PT_BR: 'pt-br',
     EN: 'en',
     FR: 'fr'
 };
 
 export default {
+    getCurrentIdiomText() {
+        const idiom = this.getCurrentIdiom();
+        return idiom.text;
+    },
+
     getCurrentIdiom() {
         const idioms = this.getIdioms();
         for (let idiom of idioms) {
@@ -27,7 +31,6 @@ export default {
 
     getIdioms() {
         return [
-            { locale: Locale.PT_BR, text: 'Português' },
             { locale: Locale.EN, text: 'English' },
             { locale: Locale.FR, text: 'Français' }
         ];
