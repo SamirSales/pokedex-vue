@@ -4,18 +4,19 @@
     "close": "Fermer",
     "description": "Description",
     "games": "Jeux",
+    "goBack": "Retourner",
     "height": "Hauteur",
     "image": "Image",
     "name": "Nom",
     "number": "Numéro",
-    "pokedex": "Pokédex",
+    "pokedex": "PokéDex",
     "type": "Tapez",
     "weight": "Poids",
 
     "aboutPage": {
-        "title": "Bonjour!",
+        "linkMessage": "Code sur GitHub",
         "message": "Ce PokeDéx est une démo d'application utilisant VueJS 2 créée par Samir Sales.",
-        "linkMessage": "Code sur GitHub"
+        "title": "Bonjour!"
     },
 
     "pokemonPointType": {

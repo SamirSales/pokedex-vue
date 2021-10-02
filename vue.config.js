@@ -10,5 +10,5 @@ module.exports = {
         }
     },
 
-    publicPath: '/pokedex/'
+    publicPath: process.env.NODE_ENV === 'production' ? '/pokedex/' : '/'
 };

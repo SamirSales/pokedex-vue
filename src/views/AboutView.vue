@@ -14,7 +14,7 @@
         </div>
 
         <v-btn color="primary" dark outlined @click="goToHomePage()">
-            <v-icon left>mdi-arrow-left</v-icon>Go back</v-btn
+            <v-icon left>mdi-arrow-left</v-icon>{{ $t('goBack') }}</v-btn
         >
     </div>
 </template>

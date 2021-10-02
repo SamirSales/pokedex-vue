@@ -4,18 +4,19 @@
     "close": "Close",
     "description": "Description",
     "games": "Games",
+    "goBack": "Go back",
     "height": "Height",
     "image": "Image",
     "name": "Name",
     "number": "Number",
-    "pokedex": "Pokédex",
+    "pokedex": "PokéDex",
     "type": "Type",
     "weight": "Weight",
 
     "aboutPage": {
-        "title": "Hello!",
+        "linkMessage": "Code on GitHub",
         "message": "This PokeDéx is an application demo using VueJS 2 created by Samir Sales.",
-        "linkMessage": "Code on GitHub"
+        "title": "Hello!"
     },
 
     "pokemonPointType": {
