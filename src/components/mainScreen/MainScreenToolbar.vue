@@ -6,6 +6,10 @@
 
         <v-spacer></v-spacer>
 
+        <v-btn icon @click="onClickInfoIconButton()">
+            <v-icon>mdi-information-outline</v-icon>
+        </v-btn>
+
         <v-menu left bottom>
             <template v-slot:activator="{ on, attrs }">
                 <v-btn v-bind="attrs" v-on="on" outlined>
@@ -27,6 +31,7 @@
 
 <script>
 import InternationalizationHandler from '@/handlers/InternationalizationHandler';
+import { RouteHandler } from '@/router';
 
 export default {
     computed: {
@@ -53,6 +58,10 @@ export default {
 
         isCurrentIdiom(idiom) {
             return InternationalizationHandler.getCurrentLocale() === idiom.locale;
+        },
+
+        onClickInfoIconButton() {
+            RouteHandler.goToAboutPage(this);
         }
     }
 };

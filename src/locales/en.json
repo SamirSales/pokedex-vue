@@ -12,6 +12,12 @@
     "type": "Type",
     "weight": "Weight",
 
+    "aboutPage": {
+        "title": "Hello!",
+        "message": "This PokeDéx is an application demo using VueJS 2 created by Samir Sales.",
+        "linkMessage": "Code on GitHub"
+    },
+
     "pokemonPointType": {
         "attack": "Attack",
         "defense": "Defense",

@@ -12,6 +12,12 @@
     "type": "Tapez",
     "weight": "Poids",
 
+    "aboutPage": {
+        "title": "Bonjour!",
+        "message": "Ce PokeDéx est une démo d'application utilisant VueJS 2 créée par Samir Sales.",
+        "linkMessage": "Code sur GitHub"
+    },
+
     "pokemonPointType": {
         "attack": "Attaque",
         "defense": "Défense",

@@ -4,14 +4,19 @@ import PokeDexView from '../views/PokeDexView/PokeDexView.vue';
 
 Vue.use(VueRouter);
 
+const Route = {
+    HOME: '/',
+    ABOUT: '/about'
+};
+
 const routes = [
     {
-        path: '/',
+        path: Route.HOME,
         name: 'PokeDexView',
         component: PokeDexView
     },
     {
-        path: '/about',
+        path: Route.ABOUT,
         name: 'About',
         component: () => import('../views/About.vue')
     }
@@ -22,3 +27,19 @@ const router = new VueRouter({
 });
 
 export default router;
+
+export const RouteHandler = {
+    goToHomePage(context) {
+        goToRouteIfNotThereYet(context, Route.HOME);
+    },
+
+    goToAboutPage(context) {
+        goToRouteIfNotThereYet(context, Route.ABOUT);
+    }
+};
+
+const goToRouteIfNotThereYet = (context, route) => {
+    if (context.$route.path != route) {
+        context.$router.push(route);
+    }
+};
