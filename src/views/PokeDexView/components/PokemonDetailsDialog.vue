@@ -1,10 +1,5 @@
 <template>
-    <v-dialog
-        :value="value"
-        max-width="600px"
-        @input="$emit('input', arguments[0])"
-        @click:outside="$emit('input', false)"
-    >
+    <v-dialog :value="value" max-width="600px" @input="$emit('input', arguments[0])" @click:outside="close()">
         <v-card v-if="selectedPokemon != null">
             <v-card-title>
                 <span class="text-h5">
@@ -39,7 +34,7 @@
                             ></pokemon-type-chip>
                         </v-col>
 
-                        <v-col cols="12">
+                        <v-col v-if="hasDescription" cols="12">
                             <b>{{ $t('description') }}</b>
                             <br />
                             {{ description }}
@@ -47,7 +42,7 @@
 
                         <v-col cols="12" v-show="hasEvolution">
                             <b>{{ $t('chainOfEvolution') }}</b>
-                            <pokemon-evolution-chain :evolutionChain="evolutionChain"></pokemon-evolution-chain>
+                            <pokemon-evolution-chain :evolutionChain="evolutionChainModel"></pokemon-evolution-chain>
                         </v-col>
 
                         <v-col cols="12">
@@ -61,22 +56,26 @@
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="$emit('input', false)"> {{ $t('close') }} </v-btn>
+                <close-button @click="close()"></close-button>
             </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
 
 <script>
+import { ErrorDialogHandler } from '@/store/modules/errorDialog';
 import { PokemonTableDataHandler } from '@/store/modules/pokemonTable';
+
 import PokemonHttpRequest from '@/http/PokemonHttpRequest';
 import PokemonEvolutionChain from './PokemonEvolutionChain.vue';
 import PokemonTypeChip from './PokemonTypeChip.vue';
+import CloseButton from '@/components/button/CloseButton';
 
 export default {
     components: {
         'pokemon-evolution-chain': PokemonEvolutionChain,
-        'pokemon-type-chip': PokemonTypeChip
+        'pokemon-type-chip': PokemonTypeChip,
+        'close-button': CloseButton
     },
 
     props: {
@@ -88,7 +87,7 @@ export default {
 
     data: () => ({
         pokemonDetailsModel: null,
-        evolutionChain: null
+        evolutionChainModel: null
     }),
 
     computed: {
@@ -103,16 +102,20 @@ export default {
             return PokemonTableDataHandler.getSelectedPokemon(this);
         },
 
+        hasDescription() {
+            return this.description != null;
+        },
+
         description() {
             if (this.pokemonDetailsModel == null) {
-                return '...';
+                return null;
             }
 
             return this.pokemonDetailsModel.getDescription();
         },
 
         hasEvolution() {
-            return this.evolutionChain != null && this.evolutionChain.hasEvolution();
+            return this.evolutionChainModel != null && this.evolutionChainModel.hasEvolution();
         }
     },
 
@@ -120,7 +123,7 @@ export default {
         value(visible) {
             if (!visible) {
                 this.pokemonDetailsModel = null;
-                this.evolutionChain = null;
+                this.evolutionChainModel = null;
             } else {
                 this.refreshInformations();
             }
@@ -130,20 +133,32 @@ export default {
     methods: {
         refreshInformations() {
             if (this.pokemonId != null) {
-                PokemonHttpRequest.getMoreInfoById(this.pokemonId).then((pokemonDetailsModel) => {
-                    this.pokemonDetailsModel = pokemonDetailsModel;
-                    this.refreshEvolutionChain();
-                });
+                PokemonHttpRequest.getMoreInfoById(this.pokemonId)
+                    .then((pokemonDetailsModel) => {
+                        this.pokemonDetailsModel = pokemonDetailsModel;
+                        this.refreshEvolutionChain();
+                    })
+                    .catch((error) => {
+                        ErrorDialogHandler.showError(this, error);
+                    });
             }
         },
 
         refreshEvolutionChain() {
             if (this.pokemonDetailsModel != null) {
                 const url = this.pokemonDetailsModel.getEvolutionChainURL();
-                PokemonHttpRequest.getEvolutionChainByURL(url).then((evolutionChain) => {
-                    this.evolutionChain = evolutionChain;
-                });
+                PokemonHttpRequest.getEvolutionChainByURL(url)
+                    .then((evolutionChainModel) => {
+                        this.evolutionChainModel = evolutionChainModel;
+                    })
+                    .catch((error) => {
+                        ErrorDialogHandler.showError(this, error);
+                    });
             }
+        },
+
+        close() {
+            this.$emit('input', false);
         }
     }
 };

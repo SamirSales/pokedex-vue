@@ -11,5 +11,17 @@
         <v-main>
             <router-view />
         </v-main>
+
+        <error-dialog></error-dialog>
     </v-app>
 </template>
+
+<script>
+import ErrorDialog from '@/components/dialog/ErrorDialog';
+
+export default {
+    components: {
+        'error-dialog': ErrorDialog
+    }
+};
+</script>

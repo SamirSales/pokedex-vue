@@ -1,6 +1,5 @@
 export default class PokemonDetailsModel {
     constructor(dataResponse) {
-        console.log('PokemonDetailsModel', dataResponse);
         this.dataResponse = dataResponse;
     }
 

@@ -1,5 +1,6 @@
 import PokemonHttpRequest from '@/http/PokemonHttpRequest';
 import { PokemonTableDataHandler } from '@/store/modules/pokemonTable';
+import { ErrorDialogHandler } from '@/store/modules/errorDialog';
 
 export default {
     refreshData(context) {
@@ -13,7 +14,8 @@ export default {
                 PokemonTableDataHandler.setItems(context, pokemons);
             })
             .catch((error) => {
-                console.log('error', error);
+                ErrorDialogHandler.showError(context, error);
+                PokemonTableDataHandler.stopLoading(context);
             })
             .then(() => {
                 PokemonTableDataHandler.stopLoading(context);
