@@ -1,29 +1,14 @@
-# pokedex
+# PokeDéx
+This PokeDéx is an application demo using VueJS 2. The application lists pokemons in a paginated manner and allows access to more detailed data for each one of them, such as the evolution chain, if any.
 
-## Project setup
-```
-npm install
-```
+Click [here](https://samirsales.github.io/pokedex/#/) and check it out!
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## PokéAPI
+HTTP requests are made through the [RESTful Pokémon API](https://pokeapi.co/).
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Internationalization
+- English
+- French
 
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## License
+MIT
