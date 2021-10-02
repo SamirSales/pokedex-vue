@@ -1,5 +1,7 @@
 import HttpRequest from './HttpRequest';
 import Configuration from '@/Configuration';
+import PokemonDetails from '@/model/PokemonDetails';
+import PokemonEvolutionChain from '@/model/PokemonEvolutionChain';
 
 export default {
     getPageByNumberAndSize(pageNumber, pageSize) {
@@ -22,5 +24,18 @@ export default {
     getByNameOrNumber(nameOrNumber) {
         const url = '/pokemon/' + nameOrNumber;
         return HttpRequest.getRequest(url);
+    },
+
+    getMoreInfoByNumber(number) {
+        const url = '/pokemon-species/' + number;
+        return HttpRequest.getRequest(url).then((response) => {
+            return new PokemonDetails(response.data);
+        });
+    },
+
+    getEvolutionChainByURL(url) {
+        return HttpRequest.getRequest(url).then((response) => {
+            return new PokemonEvolutionChain(response.data);
+        });
     }
 };

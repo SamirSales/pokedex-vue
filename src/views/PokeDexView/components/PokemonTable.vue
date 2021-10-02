@@ -11,7 +11,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="pokemon-table-row" v-for="pokemon in pokemons" :key="pokemon.id">
+                    <tr
+                        class="pokemon-table-row"
+                        v-for="pokemon in pokemons"
+                        :key="pokemon.id"
+                        @click="onClickRow(pokemon)"
+                    >
                         <td>#{{ pokemon.id }}</td>
                         <td>
                             <img :src="pokemon.sprites.front_default" height="96" width="96" />
@@ -58,7 +63,7 @@ export default {
 
     computed: {
         numberOfPages() {
-            return Configuration.MAX_NUMBER_OF_POKEMONS / this.pageSize;
+            return Math.ceil(Configuration.MAX_NUMBER_OF_POKEMONS / this.pageSize);
         },
 
         pokemons() {
@@ -90,12 +95,21 @@ export default {
         onChangePageNumber(pageNumber) {
             PokemonTableDataHandler.setPageNumber(this, pageNumber);
             PokemonStoreHttpRequest.refreshData(this);
+        },
+
+        onClickRow(pokemon) {
+            PokemonTableDataHandler.setSelectedPokemon(this, pokemon);
+            this.$emit('clickRow', pokemon);
         }
     }
 };
 </script>
 
 <style scoped>
+.pokemon-table-row {
+    cursor: pointer;
+}
+
 .pokemon-table-row td {
     width: 25%;
 }
