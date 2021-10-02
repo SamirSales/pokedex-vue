@@ -1,9 +1,25 @@
 {
+    "baseExperience": "Base experience",
+    "chainOfEvolution": "Chain of evolution",
+    "close": "Close",
+    "description": "Description",
+    "games": "Games",
+    "height": "Height",
     "image": "Image",
     "name": "Name",
     "number": "Number",
     "pokedex": "Pokédex",
     "type": "Type",
+    "weight": "Weight",
+
+    "pokemonPointType": {
+        "attack": "Attack",
+        "defense": "Defense",
+        "hp": "HP",
+        "special-attack": "Special attack",
+        "special-defense": "Special defense",
+        "speed": "Speed"
+    },
 
     "pokemonType": {
         "bug": "bug",

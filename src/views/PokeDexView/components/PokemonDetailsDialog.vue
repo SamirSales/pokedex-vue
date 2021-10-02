@@ -21,14 +21,14 @@
 
                         <v-col cols="12" sm="4" md="4">
                             <span class="pokemon-point" v-for="point in pokemonPoints" :key="point.name">
-                                <b>{{ point.name }}:</b> {{ point.value }}
+                                <b>{{ $t('pokemonPointType.' + point.name) }}:</b> {{ point.value }}
                             </span>
                         </v-col>
 
                         <v-col cols="12" sm="4" md="4">
-                            <b>Height:</b> {{ selectedPokemon.height / 10 }} m <br />
-                            <b>Weight:</b> {{ selectedPokemon.weight / 10 }} kg <br />
-                            <b>Base experience:</b> {{ selectedPokemon.base_experience }}
+                            <b>{{ $t('height') }}:</b> {{ selectedPokemon.height / 10 }} m <br />
+                            <b>{{ $t('weight') }}:</b> {{ selectedPokemon.weight / 10 }} kg <br />
+                            <b>{{ $t('baseExperience') }}:</b> {{ selectedPokemon.base_experience }}
                         </v-col>
 
                         <v-col cols="12">
@@ -40,18 +40,18 @@
                         </v-col>
 
                         <v-col cols="12">
-                            <b>Description:</b>
+                            <b>{{ $t('description') }}</b>
                             <br />
                             {{ description }}
                         </v-col>
 
                         <v-col cols="12" v-show="hasEvolution">
-                            <b>Chain of evolutions</b>
+                            <b>{{ $t('chainOfEvolution') }}</b>
                             <pokemon-evolution-chain :evolutionChain="evolutionChain"></pokemon-evolution-chain>
                         </v-col>
 
                         <v-col cols="12">
-                            <b>Games</b>
+                            <b>{{ $t('games') }}</b>
                             <br />
                             {{ selectedPokemon.game_indices.map((gi) => gi.version.name).join(', ') }}
                         </v-col>
@@ -60,7 +60,7 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="$emit('input', false)"> Close </v-btn>
+                <v-btn color="blue darken-1" text @click="$emit('input', false)"> {{ $t('close') }} </v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
