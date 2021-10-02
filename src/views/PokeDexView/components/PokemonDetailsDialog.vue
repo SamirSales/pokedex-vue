@@ -117,14 +117,12 @@ export default {
     },
 
     watch: {
-        pokemonId() {
-            this.refreshInformations();
-        },
-
         value(visible) {
             if (!visible) {
                 this.pokemonDetailsModel = null;
                 this.evolutionChain = null;
+            } else {
+                this.refreshInformations();
             }
         }
     },
