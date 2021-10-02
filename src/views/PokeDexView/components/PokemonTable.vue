@@ -19,9 +19,9 @@
                     >
                         <td>#{{ pokemon.id }}</td>
                         <td>
-                            <img :src="pokemon.sprites.front_default" height="96" width="96" />
+                            <img :src="pokemon.imageURL" height="96" width="96" />
                         </td>
-                        <td>{{ getFormatedName(pokemon.name) }}</td>
+                        <td>{{ pokemon.name }}</td>
                         <td>
                             <pokemon-type-chip
                                 v-for="type in pokemon.types"
@@ -88,10 +88,6 @@ export default {
     },
 
     methods: {
-        getFormatedName(name) {
-            return name.charAt(0).toUpperCase() + name.slice(1);
-        },
-
         onChangePageNumber(pageNumber) {
             PokemonTableDataHandler.setPageNumber(this, pageNumber);
             PokemonStoreHttpRequest.refreshData(this);

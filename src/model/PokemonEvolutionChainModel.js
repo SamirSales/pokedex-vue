@@ -1,17 +1,14 @@
-export default class PokemonEvolutionChain {
-    constructor(evolutionChainOutput) {
-        console.log('evolutionChainOutput', evolutionChainOutput);
-        this.evolutionChainOutput = evolutionChainOutput;
-
-        console.log('getTreeData', this.getTreeData());
+export default class PokemonEvolutionChainModel {
+    constructor(dataResponse) {
+        this.dataResponse = dataResponse;
     }
 
     getTreeData() {
-        return [getTreeDataRecursively(this.evolutionChainOutput.chain)];
+        return [getTreeDataRecursively(this.dataResponse.chain)];
     }
 
     hasEvolution() {
-        return this.evolutionChainOutput.chain.evolves_to.length > 0;
+        return this.dataResponse.chain.evolves_to.length > 0;
     }
 }
 

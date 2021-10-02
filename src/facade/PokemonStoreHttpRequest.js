@@ -10,7 +10,6 @@ export default {
 
         PokemonHttpRequest.getPageByNumberAndSize(pageNumber, pageSize)
             .then((pokemons) => {
-                console.log('pokemons', pokemons);
                 PokemonTableDataHandler.setItems(context, pokemons);
             })
             .catch((error) => {

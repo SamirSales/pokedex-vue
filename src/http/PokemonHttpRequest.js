@@ -1,7 +1,9 @@
 import HttpRequest from './HttpRequest';
 import Configuration from '@/Configuration';
-import PokemonDetails from '@/model/PokemonDetails';
-import PokemonEvolutionChain from '@/model/PokemonEvolutionChain';
+import PokemonDetailsModel from '@/model/PokemonDetailsModel';
+import PokemonModel from '@/model/PokemonModel';
+import PokemonEvolutionChainModel from '@/model/PokemonEvolutionChainModel';
+PokemonModel;
 
 export default {
     getPageByNumberAndSize(pageNumber, pageSize) {
@@ -10,32 +12,33 @@ export default {
 
         for (let i = 0; i < pageSize; i++) {
             if (initialPokemonNumber + i <= Configuration.MAX_NUMBER_OF_POKEMONS) {
-                const promise = this.getByNameOrNumber(initialPokemonNumber + i);
+                const promise = this.getByNameOrId(initialPokemonNumber + i);
                 promises.push(promise);
             }
         }
 
-        return Promise.all(promises).then((responses) => {
-            const dataList = responses.map((response) => response.data);
-            return dataList.sort((pokemon1, pokemon2) => pokemon1.id > pokemon2.id);
+        return Promise.all(promises).then((pokemonModels) => {
+            return pokemonModels.sort((pokemon1, pokemon2) => pokemon1.id > pokemon2.id);
         });
     },
 
-    getByNameOrNumber(nameOrNumber) {
-        const url = '/pokemon/' + nameOrNumber;
-        return HttpRequest.getRequest(url);
+    getByNameOrId(nameOrId) {
+        const url = '/pokemon/' + nameOrId;
+        return HttpRequest.getRequest(url).then((response) => {
+            return new PokemonModel(response.data);
+        });
     },
 
-    getMoreInfoByNumber(number) {
-        const url = '/pokemon-species/' + number;
+    getMoreInfoById(pokemonId) {
+        const url = '/pokemon-species/' + pokemonId;
         return HttpRequest.getRequest(url).then((response) => {
-            return new PokemonDetails(response.data);
+            return new PokemonDetailsModel(response.data);
         });
     },
 
     getEvolutionChainByURL(url) {
         return HttpRequest.getRequest(url).then((response) => {
-            return new PokemonEvolutionChain(response.data);
+            return new PokemonEvolutionChainModel(response.data);
         });
     }
 };

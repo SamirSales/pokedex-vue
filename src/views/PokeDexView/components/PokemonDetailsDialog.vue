@@ -8,7 +8,7 @@
         <v-card v-if="selectedPokemon != null">
             <v-card-title>
                 <span class="text-h5">
-                    {{ formatedPokemonName }} <span style="color: #c0c0c0">#{{ selectedPokemon.id }}</span>
+                    {{ selectedPokemon.name }} <span style="color: #c0c0c0">#{{ selectedPokemon.id }}</span>
                 </span>
             </v-card-title>
 
@@ -16,19 +16,19 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="4" md="4">
-                            <img :src="selectedPokemon.sprites.front_default" height="96" width="96"
+                            <img :src="selectedPokemon.imageURL" height="96" width="96"
                         /></v-col>
 
                         <v-col cols="12" sm="4" md="4">
-                            <span class="pokemon-point" v-for="point in pokemonPoints" :key="point.name">
+                            <span class="pokemon-point" v-for="point in selectedPokemon.points" :key="point.name">
                                 <b>{{ $t('pokemonPointType.' + point.name) }}:</b> {{ point.value }}
                             </span>
                         </v-col>
 
                         <v-col cols="12" sm="4" md="4">
-                            <b>{{ $t('height') }}:</b> {{ selectedPokemon.height / 10 }} m <br />
-                            <b>{{ $t('weight') }}:</b> {{ selectedPokemon.weight / 10 }} kg <br />
-                            <b>{{ $t('baseExperience') }}:</b> {{ selectedPokemon.base_experience }}
+                            <b>{{ $t('height') }}:</b> {{ selectedPokemon.heightInMeters }} m <br />
+                            <b>{{ $t('weight') }}:</b> {{ selectedPokemon.weightInKg }} kg <br />
+                            <b>{{ $t('baseExperience') }}:</b> {{ selectedPokemon.baseExperience }}
                         </v-col>
 
                         <v-col cols="12">
@@ -53,11 +53,12 @@
                         <v-col cols="12">
                             <b>{{ $t('games') }}</b>
                             <br />
-                            {{ selectedPokemon.game_indices.map((gi) => gi.version.name).join(', ') }}
+                            {{ selectedPokemon.gameNames.join(', ') }}
                         </v-col>
                     </v-row>
                 </v-container>
             </v-card-text>
+
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="$emit('input', false)"> {{ $t('close') }} </v-btn>
@@ -91,18 +92,7 @@ export default {
     }),
 
     computed: {
-        formatedPokemonName() {
-            const name = this.selectedPokemon.name;
-            return name.charAt(0).toUpperCase() + name.slice(1);
-        },
-
-        pokemonPoints() {
-            return this.selectedPokemon.stats.map((st) => {
-                return { name: st.stat.name, value: st.base_stat };
-            });
-        },
-
-        pokemonNumber() {
+        pokemonId() {
             if (this.selectedPokemon == null) {
                 return null;
             }
@@ -127,7 +117,7 @@ export default {
     },
 
     watch: {
-        pokemonNumber() {
+        pokemonId() {
             this.refreshInformations();
         },
 
@@ -141,8 +131,8 @@ export default {
 
     methods: {
         refreshInformations() {
-            if (this.pokemonNumber != null) {
-                PokemonHttpRequest.getMoreInfoByNumber(this.pokemonNumber).then((pokemonDetailsModel) => {
+            if (this.pokemonId != null) {
+                PokemonHttpRequest.getMoreInfoById(this.pokemonId).then((pokemonDetailsModel) => {
                     this.pokemonDetailsModel = pokemonDetailsModel;
                     this.refreshEvolutionChain();
                 });
